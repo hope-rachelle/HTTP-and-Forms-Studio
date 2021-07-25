@@ -1,5 +1,4 @@
 function setSearchEngine (event) {
-    let engine = document.querySelector("input[name=engine]:checked").value
     let action = {
        "google": "https://www.google.com/",
         "duckDuckGo": "https://duckduckgo.com/",
@@ -9,16 +8,15 @@ function setSearchEngine (event) {
     
     let searchText = document.querySelector("input[name=q]");
     let selectedSearchEngine = document.querySelector("input[name=engine]:checked");
-    if (searchText.value === "") {
-        alert("Please enter your search request.");
+    if (searchText.value === "" || selectedSearchEngine === null) {
+        alert("Please enter your search text and choose search engine.");
         event.preventDefault();
-    } else if (selectedSearchEngine === null) {
-        alert("Please select a search engine.");
-        event.preventDefault();
-    } else {
-        let setAction = document.getElementById("searchForm")
-        setAction.setAttribute("action", action[engine])
-}
+        return;
+    } 
+    let engine = action[selectedSearchEngine.value];
+    let setAction = document.getElementById("searchForm");
+    setAction.setAttribute("action", engine);  
+
 }
 window.addEventListener("load", function(){
     let submit = document.getElementById("button");
